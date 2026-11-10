@@ -1,0 +1,2653 @@
+[
+  {
+    "name": "getActivationHistory",
+    "operationId": "82eacb597b010298c78dacd1f0bdd3ff",
+    "method": "GET",
+    "path": "/activations/history",
+    "parameters": [
+      {
+        "name": "from",
+        "in": "query",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      {
+        "name": "to",
+        "in": "query",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      {
+        "name": "services[]",
+        "in": "query",
+        "explode": true,
+        "schema": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[a-zA-Z]{2,4}$",
+            "maxLength": 4,
+            "minLength": 2
+          }
+        }
+      },
+      {
+        "name": "countries[]",
+        "in": "query",
+        "explode": true,
+        "schema": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "maximum": 999,
+            "minimum": 0
+          }
+        }
+      },
+      {
+        "name": "statuses[]",
+        "in": "query",
+        "required": false,
+        "explode": true,
+        "schema": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "enum": [
+              6,
+              8,
+              10
+            ]
+          }
+        }
+      },
+      {
+        "name": "size",
+        "in": "query",
+        "schema": {
+          "type": "integer",
+          "maximum": 25,
+          "minimum": 1
+        }
+      },
+      {
+        "name": "page",
+        "in": "query",
+        "schema": {
+          "type": "integer",
+          "minimum": 1
+        }
+      },
+      {
+        "name": "sort",
+        "in": "query",
+        "required": false,
+        "style": "deepObject",
+        "explode": true,
+        "schema": {
+          "properties": {
+            "id": {
+              "type": "string",
+              "enum": [
+                "asc",
+                "desc"
+              ]
+            }
+          },
+          "type": "object"
+        }
+      },
+      {
+        "name": "search",
+        "in": "query",
+        "schema": {
+          "type": "string",
+          "maxLength": 255,
+          "minLength": 1
+        }
+      }
+    ],
+    "mutating": false,
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "from": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "to": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "services[]": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[a-zA-Z]{2,4}$",
+            "maxLength": 4,
+            "minLength": 2
+          }
+        },
+        "countries[]": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "maximum": 999,
+            "minimum": 0
+          }
+        },
+        "statuses[]": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "enum": [
+              6,
+              8,
+              10
+            ]
+          }
+        },
+        "size": {
+          "type": "integer",
+          "maximum": 25,
+          "minimum": 1
+        },
+        "page": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "sort": {
+          "properties": {
+            "id": {
+              "type": "string",
+              "enum": [
+                "asc",
+                "desc"
+              ]
+            }
+          },
+          "type": "object"
+        },
+        "search": {
+          "type": "string",
+          "maxLength": 255,
+          "minLength": 1
+        }
+      },
+      "required": [
+        "from",
+        "to"
+      ],
+      "additionalProperties": false
+    }
+  },
+  {
+    "name": "getActivationOtpLast",
+    "operationId": "getActivationOtpLast",
+    "method": "GET",
+    "path": "/activations/{activationId}/otp/last",
+    "parameters": [
+      {
+        "name": "activationId",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "integer"
+        }
+      }
+    ],
+    "mutating": false,
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "activationId": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "activationId"
+      ],
+      "additionalProperties": false
+    }
+  },
+  {
+    "name": "getActivationOtpList",
+    "operationId": "getActivationOtpList",
+    "method": "GET",
+    "path": "/activations/{activationId}/otp",
+    "parameters": [
+      {
+        "name": "activationId",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "integer"
+        }
+      },
+      {
+        "name": "size",
+        "in": "query",
+        "schema": {
+          "type": "integer",
+          "maximum": 25,
+          "minimum": 1
+        }
+      },
+      {
+        "name": "page",
+        "in": "query",
+        "schema": {
+          "type": "integer",
+          "minimum": 1
+        }
+      },
+      {
+        "name": "sort",
+        "in": "query",
+        "required": false,
+        "style": "deepObject",
+        "explode": true,
+        "schema": {
+          "properties": {
+            "id": {
+              "type": "string",
+              "enum": [
+                "asc",
+                "desc"
+              ]
+            }
+          },
+          "type": "object"
+        }
+      },
+      {
+        "name": "verificationType",
+        "in": "query",
+        "schema": {
+          "type": "string",
+          "enum": [
+            "sms",
+            "call",
+            "voice"
+          ]
+        }
+      },
+      {
+        "name": "from",
+        "in": "query",
+        "required": false,
+        "schema": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      {
+        "name": "to",
+        "in": "query",
+        "required": false,
+        "schema": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    ],
+    "mutating": false,
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "activationId": {
+          "type": "integer"
+        },
+        "size": {
+          "type": "integer",
+          "maximum": 25,
+          "minimum": 1
+        },
+        "page": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "sort": {
+          "properties": {
+            "id": {
+              "type": "string",
+              "enum": [
+                "asc",
+                "desc"
+              ]
+            }
+          },
+          "type": "object"
+        },
+        "verificationType": {
+          "type": "string",
+          "enum": [
+            "sms",
+            "call",
+            "voice"
+          ]
+        },
+        "from": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "to": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "activationId"
+      ],
+      "additionalProperties": false
+    }
+  },
+  {
+    "name": "getActiveActivations",
+    "operationId": "getActiveActivations",
+    "method": "GET",
+    "path": "/activations",
+    "parameters": [
+      {
+        "name": "size",
+        "in": "query",
+        "schema": {
+          "type": "integer",
+          "maximum": 25,
+          "minimum": 1
+        }
+      },
+      {
+        "name": "page",
+        "in": "query",
+        "schema": {
+          "type": "integer",
+          "minimum": 1
+        }
+      },
+      {
+        "name": "sort",
+        "in": "query",
+        "required": false,
+        "style": "deepObject",
+        "explode": true,
+        "schema": {
+          "properties": {
+            "id": {
+              "type": "string",
+              "enum": [
+                "asc",
+                "desc"
+              ]
+            }
+          },
+          "type": "object"
+        }
+      },
+      {
+        "name": "search",
+        "in": "query",
+        "schema": {
+          "type": "string",
+          "maxLength": 255,
+          "minLength": 1
+        }
+      },
+      {
+        "name": "verificationType",
+        "in": "query",
+        "schema": {
+          "type": "string",
+          "enum": [
+            "sms",
+            "call",
+            "voice"
+          ]
+        }
+      },
+      {
+        "name": "from",
+        "in": "query",
+        "required": false,
+        "schema": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      {
+        "name": "to",
+        "in": "query",
+        "required": false,
+        "schema": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      {
+        "name": "countries",
+        "in": "query",
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "services",
+        "in": "query",
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "mutating": false,
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "size": {
+          "type": "integer",
+          "maximum": 25,
+          "minimum": 1
+        },
+        "page": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "sort": {
+          "properties": {
+            "id": {
+              "type": "string",
+              "enum": [
+                "asc",
+                "desc"
+              ]
+            }
+          },
+          "type": "object"
+        },
+        "search": {
+          "type": "string",
+          "maxLength": 255,
+          "minLength": 1
+        },
+        "verificationType": {
+          "type": "string",
+          "enum": [
+            "sms",
+            "call",
+            "voice"
+          ]
+        },
+        "from": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "to": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "countries": {
+          "type": "string"
+        },
+        "services": {
+          "type": "string"
+        }
+      },
+      "required": [],
+      "additionalProperties": false
+    }
+  },
+  {
+    "name": "buyActivationBatch",
+    "operationId": "buyActivationBatch",
+    "method": "POST",
+    "path": "/activations",
+    "parameters": [],
+    "mutating": true,
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "body": {
+          "schema": "BuyActivationRequestBody",
+          "required": [
+            "service",
+            "country",
+            "amount"
+          ],
+          "properties": {
+            "service": {
+              "type": "string",
+              "pattern": "^[a-zA-Z]{2,4}$",
+              "maxLength": 4,
+              "minLength": 2
+            },
+            "country": {
+              "type": "integer",
+              "maximum": 999,
+              "minimum": 0
+            },
+            "amount": {
+              "type": "integer",
+              "maximum": 10,
+              "minimum": 1
+            },
+            "operator": {
+              "type": "string",
+              "pattern": "^([a-zA-Z0-9!_]{2,},)*[_a-zA-Z0-9!]{2,}$"
+            },
+            "phoneException": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "pattern": "^[0-9]{4,7}(,[0-9]{4,7}){0,19}$"
+            },
+            "maxPrice": {
+              "type": "number",
+              "format": "float",
+              "minimum": 0.0067
+            },
+            "fixedPrice": {
+              "type": "boolean"
+            },
+            "duration": {
+              "type": "integer",
+              "enum": [
+                24,
+                72,
+                168,
+                336,
+                720,
+                1440,
+                2160,
+                4320
+              ]
+            },
+            "verificationType": {
+              "type": "string",
+              "enum": [
+                "sms",
+                "call",
+                "voice"
+              ]
+            },
+            "resellerUserId": {
+              "type": "string",
+              "pattern": "^[a-zA-Z0-9_.@-]{1,36}$",
+              "maxLength": 36,
+              "minLength": 1
+            }
+          },
+          "type": "object"
+        }
+      },
+      "required": [
+        "body"
+      ],
+      "additionalProperties": false
+    }
+  },
+  {
+    "name": "cancelActivation",
+    "operationId": "cancelActivation",
+    "method": "DELETE",
+    "path": "/activations/{activationId}",
+    "parameters": [
+      {
+        "name": "activationId",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "integer"
+        }
+      }
+    ],
+    "mutating": true,
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "activationId": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "activationId"
+      ],
+      "additionalProperties": false
+    }
+  },
+  {
+    "name": "finishActivation",
+    "operationId": "finishActivation",
+    "method": "POST",
+    "path": "/activations/{activationId}/finish",
+    "parameters": [
+      {
+        "name": "activationId",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "integer"
+        }
+      }
+    ],
+    "mutating": true,
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "activationId": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "activationId"
+      ],
+      "additionalProperties": false
+    }
+  },
+  {
+    "name": "replaceActivation",
+    "operationId": "replaceActivation",
+    "method": "POST",
+    "path": "/activations/{activationId}/replace",
+    "parameters": [
+      {
+        "name": "activationId",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "integer"
+        }
+      }
+    ],
+    "mutating": true,
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "activationId": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "activationId"
+      ],
+      "additionalProperties": false
+    }
+  },
+  {
+    "name": "reactivateActivation",
+    "operationId": "reactivateActivation",
+    "method": "POST",
+    "path": "/activations/{activationId}/reactivate",
+    "parameters": [
+      {
+        "name": "activationId",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "integer"
+        }
+      }
+    ],
+    "mutating": true,
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "activationId": {
+          "type": "integer"
+        },
+        "body": {
+          "schema": "ReactivateActivationRequestBody",
+          "required": [],
+          "properties": {
+            "duration": {
+              "type": "integer",
+              "enum": [
+                24,
+                72,
+                168,
+                336,
+                720,
+                1440,
+                2160,
+                4320
+              ]
+            }
+          },
+          "type": "object"
+        }
+      },
+      "required": [
+        "activationId"
+      ],
+      "additionalProperties": false
+    }
+  },
+  {
+    "name": "reactivateOptions",
+    "operationId": "reactivateOptions",
+    "method": "GET",
+    "path": "/activations/{activationId}/reactivate/options",
+    "parameters": [
+      {
+        "name": "activationId",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "integer"
+        }
+      }
+    ],
+    "mutating": false,
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "activationId": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "activationId"
+      ],
+      "additionalProperties": false
+    }
+  },
+  {
+    "name": "prolongActivation",
+    "operationId": "prolongActivation",
+    "method": "POST",
+    "path": "/activations/{activationId}/prolong",
+    "parameters": [
+      {
+        "name": "activationId",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "integer"
+        }
+      }
+    ],
+    "mutating": true,
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "activationId": {
+          "type": "integer"
+        },
+        "body": {
+          "schema": "ProlongActivationRequestBody",
+          "required": [
+            "duration"
+          ],
+          "properties": {
+            "duration": {
+              "type": "integer",
+              "enum": [
+                24,
+                72,
+                168,
+                336,
+                720,
+                1440,
+                2160,
+                4320
+              ]
+            }
+          },
+          "type": "object"
+        }
+      },
+      "required": [
+        "activationId",
+        "body"
+      ],
+      "additionalProperties": false
+    }
+  },
+  {
+    "name": "prolongOptions",
+    "operationId": "prolongOptions",
+    "method": "GET",
+    "path": "/activations/{activationId}/prolong/options",
+    "parameters": [
+      {
+        "name": "activationId",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "integer"
+        }
+      }
+    ],
+    "mutating": false,
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "activationId": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "activationId"
+      ],
+      "additionalProperties": false
+    }
+  },
+  {
+    "name": "prolongActivationHistory",
+    "operationId": "prolongActivationHistory",
+    "method": "GET",
+    "path": "/activations/{activationId}/prolong/history",
+    "parameters": [
+      {
+        "name": "activationId",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "integer"
+        }
+      }
+    ],
+    "mutating": false,
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "activationId": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "activationId"
+      ],
+      "additionalProperties": false
+    }
+  },
+  {
+    "name": "customDurations",
+    "operationId": "customDurations",
+    "method": "GET",
+    "path": "/classifiers/activations/custom-durations",
+    "parameters": [],
+    "mutating": false,
+    "inputSchema": {
+      "type": "object",
+      "properties": {},
+      "required": [],
+      "additionalProperties": false
+    }
+  },
+  {
+    "name": "getActivationStats",
+    "operationId": "getActivationStats",
+    "method": "GET",
+    "path": "/activations/stats",
+    "parameters": [
+      {
+        "name": "date",
+        "in": "query",
+        "required": false,
+        "schema": {
+          "type": "string",
+          "format": "date"
+        }
+      }
+    ],
+    "mutating": false,
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "date": {
+          "type": "string",
+          "format": "date"
+        }
+      },
+      "required": [],
+      "additionalProperties": false
+    }
+  },
+  {
+    "name": "getActivationOffers",
+    "operationId": "getActivationOffers",
+    "method": "GET",
+    "path": "/activations/offers/{verificationType}",
+    "parameters": [
+      {
+        "name": "verificationType",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "enum": [
+            "sms",
+            "call",
+            "voice"
+          ]
+        }
+      },
+      {
+        "name": "services",
+        "in": "query",
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "countries",
+        "in": "query",
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "operators",
+        "in": "query",
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "mutating": false,
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "verificationType": {
+          "type": "string",
+          "enum": [
+            "sms",
+            "call",
+            "voice"
+          ]
+        },
+        "services": {
+          "type": "string"
+        },
+        "countries": {
+          "type": "string"
+        },
+        "operators": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "verificationType"
+      ],
+      "additionalProperties": false
+    }
+  },
+  {
+    "name": "getEmailActivations",
+    "operationId": "7f17119e77aad0c154d2f5e600ef092a",
+    "method": "GET",
+    "path": "/emails",
+    "parameters": [
+      {
+        "name": "search",
+        "in": "query",
+        "schema": {
+          "type": "string",
+          "maxLength": 255,
+          "minLength": 1
+        }
+      },
+      {
+        "name": "size",
+        "in": "query",
+        "schema": {
+          "type": "integer",
+          "maximum": 25,
+          "minimum": 1
+        }
+      },
+      {
+        "name": "page",
+        "in": "query",
+        "schema": {
+          "type": "integer",
+          "minimum": 1
+        }
+      },
+      {
+        "name": "sort",
+        "in": "query",
+        "required": false,
+        "style": "deepObject",
+        "explode": true,
+        "schema": {
+          "properties": {
+            "id": {
+              "type": "string",
+              "enum": [
+                "asc",
+                "desc"
+              ]
+            }
+          },
+          "type": "object"
+        }
+      },
+      {
+        "name": "status[]",
+        "in": "query",
+        "required": false,
+        "explode": true,
+        "schema": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "enum": [
+              3,
+              4,
+              5,
+              6,
+              7
+            ]
+          }
+        }
+      },
+      {
+        "name": "from",
+        "in": "query",
+        "required": false,
+        "schema": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      {
+        "name": "to",
+        "in": "query",
+        "required": false,
+        "schema": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    ],
+    "mutating": false,
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "search": {
+          "type": "string",
+          "maxLength": 255,
+          "minLength": 1
+        },
+        "size": {
+          "type": "integer",
+          "maximum": 25,
+          "minimum": 1
+        },
+        "page": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "sort": {
+          "properties": {
+            "id": {
+              "type": "string",
+              "enum": [
+                "asc",
+                "desc"
+              ]
+            }
+          },
+          "type": "object"
+        },
+        "status[]": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "enum": [
+              3,
+              4,
+              5,
+              6,
+              7
+            ]
+          }
+        },
+        "from": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "to": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": [],
+      "additionalProperties": false
+    }
+  },
+  {
+    "name": "buyEmailActivation",
+    "operationId": "22164e5067a27560b8fbf28b2ac1f019",
+    "method": "POST",
+    "path": "/emails",
+    "parameters": [],
+    "mutating": true,
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "body": {
+          "required": [
+            "site",
+            "domain"
+          ],
+          "properties": {
+            "site": {
+              "type": "string"
+            },
+            "domain": {
+              "type": "string"
+            },
+            "maxPrice": {
+              "type": [
+                "number",
+                "null"
+              ],
+              "format": "float",
+              "minimum": 0
+            }
+          },
+          "type": "object"
+        }
+      },
+      "required": [
+        "body"
+      ],
+      "additionalProperties": false
+    }
+  },
+  {
+    "name": "buyEmailActivationBatch",
+    "operationId": "7892a59d83e6e38d154854fe1f1b065f",
+    "method": "POST",
+    "path": "/emails/batch",
+    "parameters": [],
+    "mutating": true,
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "body": {
+          "required": [
+            "site",
+            "domain",
+            "count"
+          ],
+          "properties": {
+            "site": {
+              "type": "string"
+            },
+            "domain": {
+              "type": "string"
+            },
+            "count": {
+              "type": "integer",
+              "maximum": 10,
+              "minimum": 1
+            },
+            "maxPrice": {
+              "type": [
+                "number",
+                "null"
+              ],
+              "format": "float",
+              "minimum": 0
+            }
+          },
+          "type": "object"
+        }
+      },
+      "required": [
+        "body"
+      ],
+      "additionalProperties": false
+    }
+  },
+  {
+    "name": "getEmailActivation",
+    "operationId": "c57ebd15edbfa8625b8a60984b76e3c6",
+    "method": "GET",
+    "path": "/emails/{emailId}",
+    "parameters": [
+      {
+        "name": "emailId",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "integer"
+        }
+      }
+    ],
+    "mutating": false,
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "emailId": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "emailId"
+      ],
+      "additionalProperties": false
+    }
+  },
+  {
+    "name": "cancelEmailActivation",
+    "operationId": "20dae8daa691db1282f0d1d268dbac44",
+    "method": "DELETE",
+    "path": "/emails/{emailId}",
+    "parameters": [
+      {
+        "name": "emailId",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "integer"
+        }
+      }
+    ],
+    "mutating": true,
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "emailId": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "emailId"
+      ],
+      "additionalProperties": false
+    }
+  },
+  {
+    "name": "reorderEmailActivation",
+    "operationId": "bb0d53e0557982f130c1540ed663e831",
+    "method": "POST",
+    "path": "/emails/{emailId}/reorder",
+    "parameters": [
+      {
+        "name": "emailId",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "integer"
+        }
+      }
+    ],
+    "mutating": true,
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "emailId": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "emailId"
+      ],
+      "additionalProperties": false
+    }
+  },
+  {
+    "name": "getEmailDomains",
+    "operationId": "59f271906bdbc81b6b2cdd4213b01775",
+    "method": "GET",
+    "path": "/emails/domains",
+    "parameters": [
+      {
+        "name": "site",
+        "in": "query",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "mutating": false,
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "site": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "site"
+      ],
+      "additionalProperties": false
+    }
+  },
+  {
+    "name": "getEmailOffers",
+    "operationId": "f8e545c04e941382450fcc88b14c4e89",
+    "method": "GET",
+    "path": "/emails/offers",
+    "parameters": [
+      {
+        "name": "site",
+        "in": "query",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "domain",
+        "in": "query",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "mutating": false,
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "site": {
+          "type": "string"
+        },
+        "domain": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "site"
+      ],
+      "additionalProperties": false
+    }
+  },
+  {
+    "name": "getDeliverabilityStats",
+    "operationId": "60679e939ef779f9063f3a035599e820",
+    "method": "GET",
+    "path": "/stats/deliverability",
+    "parameters": [
+      {
+        "name": "services[]",
+        "in": "query",
+        "required": true,
+        "explode": true,
+        "schema": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[a-zA-Z]{2,4}$",
+            "maxLength": 4,
+            "minLength": 2
+          },
+          "minItems": 1
+        }
+      },
+      {
+        "name": "countries[]",
+        "in": "query",
+        "explode": true,
+        "schema": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "maximum": 999,
+            "minimum": 0
+          }
+        }
+      },
+      {
+        "name": "interval",
+        "in": "query",
+        "required": true,
+        "schema": {
+          "type": "integer",
+          "enum": [
+            12,
+            24
+          ]
+        }
+      },
+      {
+        "name": "successCount",
+        "in": "query",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "enum": [
+            "low",
+            "medium",
+            "high",
+            "very_high"
+          ]
+        }
+      },
+      {
+        "name": "size",
+        "in": "query",
+        "schema": {
+          "type": "integer",
+          "maximum": 25,
+          "minimum": 1
+        }
+      },
+      {
+        "name": "withOperators",
+        "in": "query",
+        "schema": {
+          "type": "boolean"
+        }
+      }
+    ],
+    "mutating": false,
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "services[]": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[a-zA-Z]{2,4}$",
+            "maxLength": 4,
+            "minLength": 2
+          },
+          "minItems": 1
+        },
+        "countries[]": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "maximum": 999,
+            "minimum": 0
+          }
+        },
+        "interval": {
+          "type": "integer",
+          "enum": [
+            12,
+            24
+          ]
+        },
+        "successCount": {
+          "type": "string",
+          "enum": [
+            "low",
+            "medium",
+            "high",
+            "very_high"
+          ]
+        },
+        "size": {
+          "type": "integer",
+          "maximum": 25,
+          "minimum": 1
+        },
+        "withOperators": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "services[]",
+        "interval",
+        "successCount"
+      ],
+      "additionalProperties": false
+    }
+  },
+  {
+    "name": "getBalance",
+    "operationId": "getBalance",
+    "method": "GET",
+    "path": "?action=getBalance",
+    "parameters": [],
+    "mutating": false,
+    "inputSchema": {
+      "type": "object",
+      "properties": {},
+      "required": [],
+      "additionalProperties": false
+    }
+  },
+  {
+    "name": "getNumber",
+    "operationId": "getNumber",
+    "method": "GET",
+    "path": "?action=getNumber",
+    "parameters": [
+      {
+        "name": "service",
+        "in": "query",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "country",
+        "in": "query",
+        "required": true,
+        "schema": {
+          "type": "number"
+        }
+      },
+      {
+        "name": "operator",
+        "in": "query",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "maxPrice",
+        "in": "query",
+        "required": false,
+        "schema": {
+          "type": "number"
+        }
+      },
+      {
+        "name": "fixedPrice",
+        "in": "query",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "ref",
+        "in": "query",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "phoneException",
+        "in": "query",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "mutating": true,
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "service": {
+          "type": "string"
+        },
+        "country": {
+          "type": "number"
+        },
+        "operator": {
+          "type": "string"
+        },
+        "maxPrice": {
+          "type": "number"
+        },
+        "fixedPrice": {
+          "type": "string"
+        },
+        "ref": {
+          "type": "string"
+        },
+        "phoneException": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "service",
+        "country"
+      ],
+      "additionalProperties": false
+    }
+  },
+  {
+    "name": "getNumberV2",
+    "operationId": "getNumberV2",
+    "method": "GET",
+    "path": "?action=getNumberV2",
+    "parameters": [
+      {
+        "name": "service",
+        "in": "query",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "country",
+        "in": "query",
+        "required": true,
+        "schema": {
+          "type": "number"
+        }
+      },
+      {
+        "name": "operator",
+        "in": "query",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "maxPrice",
+        "in": "query",
+        "required": false,
+        "schema": {
+          "type": "number"
+        }
+      },
+      {
+        "name": "fixedPrice",
+        "in": "query",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "ref",
+        "in": "query",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "phoneException",
+        "in": "query",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "mutating": true,
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "service": {
+          "type": "string"
+        },
+        "country": {
+          "type": "number"
+        },
+        "operator": {
+          "type": "string"
+        },
+        "maxPrice": {
+          "type": "number"
+        },
+        "fixedPrice": {
+          "type": "string"
+        },
+        "ref": {
+          "type": "string"
+        },
+        "phoneException": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "service",
+        "country"
+      ],
+      "additionalProperties": false
+    }
+  },
+  {
+    "name": "setStatus",
+    "operationId": "setStatus",
+    "method": "GET",
+    "path": "?action=setStatus",
+    "parameters": [
+      {
+        "name": "id",
+        "in": "query",
+        "required": true,
+        "schema": {
+          "type": "integer"
+        }
+      },
+      {
+        "name": "status",
+        "in": "query",
+        "required": true,
+        "schema": {
+          "oneOf": [
+            {
+              "type": "integer",
+              "enum": [
+                3
+              ]
+            },
+            {
+              "type": "integer",
+              "enum": [
+                6
+              ]
+            },
+            {
+              "type": "integer",
+              "enum": [
+                8
+              ]
+            }
+          ]
+        }
+      }
+    ],
+    "mutating": true,
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "status": {
+          "oneOf": [
+            {
+              "type": "integer",
+              "enum": [
+                3
+              ]
+            },
+            {
+              "type": "integer",
+              "enum": [
+                6
+              ]
+            },
+            {
+              "type": "integer",
+              "enum": [
+                8
+              ]
+            }
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "status"
+      ],
+      "additionalProperties": false
+    }
+  },
+  {
+    "name": "getStatus",
+    "operationId": "getStatus",
+    "method": "GET",
+    "path": "?action=getStatus",
+    "parameters": [
+      {
+        "name": "id",
+        "in": "query",
+        "required": true,
+        "schema": {
+          "type": "integer"
+        }
+      }
+    ],
+    "mutating": false,
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "id"
+      ],
+      "additionalProperties": false
+    }
+  },
+  {
+    "name": "getStatusV2",
+    "operationId": "getStatusV2",
+    "method": "GET",
+    "path": "?action=getStatusV2",
+    "parameters": [
+      {
+        "name": "id",
+        "in": "query",
+        "required": true,
+        "schema": {
+          "type": "integer"
+        }
+      }
+    ],
+    "mutating": false,
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "id"
+      ],
+      "additionalProperties": false
+    }
+  },
+  {
+    "name": "saGetActiveActivations",
+    "operationId": "saGetActiveActivations",
+    "method": "GET",
+    "path": "?action=getActiveActivations",
+    "parameters": [
+      {
+        "name": "start",
+        "in": "query",
+        "required": false,
+        "schema": {
+          "type": "integer"
+        }
+      },
+      {
+        "name": "limit",
+        "in": "query",
+        "required": false,
+        "schema": {
+          "type": "integer"
+        }
+      }
+    ],
+    "mutating": false,
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "start": {
+          "type": "integer"
+        },
+        "limit": {
+          "type": "integer"
+        }
+      },
+      "required": [],
+      "additionalProperties": false
+    }
+  },
+  {
+    "name": "getHistory",
+    "operationId": "getHistory",
+    "method": "GET",
+    "path": "?action=getHistory",
+    "parameters": [
+      {
+        "name": "start",
+        "in": "query",
+        "required": false,
+        "schema": {
+          "type": "integer"
+        }
+      },
+      {
+        "name": "end",
+        "in": "query",
+        "required": false,
+        "schema": {
+          "type": "integer"
+        }
+      },
+      {
+        "name": "offset",
+        "in": "query",
+        "required": false,
+        "schema": {
+          "type": "integer"
+        }
+      },
+      {
+        "name": "size",
+        "in": "query",
+        "required": false,
+        "schema": {
+          "type": "integer"
+        }
+      }
+    ],
+    "mutating": false,
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "start": {
+          "type": "integer"
+        },
+        "end": {
+          "type": "integer"
+        },
+        "offset": {
+          "type": "integer"
+        },
+        "size": {
+          "type": "integer"
+        }
+      },
+      "required": [],
+      "additionalProperties": false
+    }
+  },
+  {
+    "name": "reactivate",
+    "operationId": "reactivate",
+    "method": "POST",
+    "path": "?action=reactivate",
+    "parameters": [
+      {
+        "name": "id",
+        "in": "query",
+        "required": true,
+        "schema": {
+          "type": "integer"
+        }
+      },
+      {
+        "name": "duration",
+        "in": "query",
+        "required": false,
+        "schema": {
+          "type": "number"
+        }
+      }
+    ],
+    "mutating": true,
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "duration": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "id"
+      ],
+      "additionalProperties": false
+    }
+  },
+  {
+    "name": "saReactivateOptions",
+    "operationId": "saReactivateOptions",
+    "method": "GET",
+    "path": "?action=reactivateOptions",
+    "parameters": [
+      {
+        "name": "id",
+        "in": "query",
+        "required": true,
+        "schema": {
+          "type": "integer"
+        }
+      }
+    ],
+    "mutating": false,
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "id"
+      ],
+      "additionalProperties": false
+    }
+  },
+  {
+    "name": "prolong",
+    "operationId": "prolong",
+    "method": "POST",
+    "path": "?action=prolong",
+    "parameters": [
+      {
+        "name": "id",
+        "in": "query",
+        "required": true,
+        "schema": {
+          "type": "integer"
+        }
+      },
+      {
+        "name": "duration",
+        "in": "query",
+        "required": true,
+        "schema": {
+          "type": "number"
+        }
+      }
+    ],
+    "mutating": true,
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "duration": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "id",
+        "duration"
+      ],
+      "additionalProperties": false
+    }
+  },
+  {
+    "name": "saProlongOptions",
+    "operationId": "saProlongOptions",
+    "method": "GET",
+    "path": "?action=prolongOptions",
+    "parameters": [
+      {
+        "name": "id",
+        "in": "query",
+        "required": true,
+        "schema": {
+          "type": "integer"
+        }
+      }
+    ],
+    "mutating": false,
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "id"
+      ],
+      "additionalProperties": false
+    }
+  },
+  {
+    "name": "prolongHistory",
+    "operationId": "prolongHistory",
+    "method": "GET",
+    "path": "?action=prolongHistory",
+    "parameters": [
+      {
+        "name": "id",
+        "in": "query",
+        "required": true,
+        "schema": {
+          "type": "integer"
+        }
+      }
+    ],
+    "mutating": false,
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "id"
+      ],
+      "additionalProperties": false
+    }
+  },
+  {
+    "name": "getCountries",
+    "operationId": "getCountries",
+    "method": "GET",
+    "path": "?action=getCountries",
+    "parameters": [],
+    "mutating": false,
+    "inputSchema": {
+      "type": "object",
+      "properties": {},
+      "required": [],
+      "additionalProperties": false
+    }
+  },
+  {
+    "name": "getServicesList",
+    "operationId": "getServicesList",
+    "method": "GET",
+    "path": "?action=getServicesList",
+    "parameters": [
+      {
+        "name": "country",
+        "in": "query",
+        "required": false,
+        "schema": {
+          "type": "number"
+        }
+      },
+      {
+        "name": "lang",
+        "in": "query",
+        "required": false,
+        "schema": {
+          "type": "string",
+          "enum": [
+            "en",
+            "cn",
+            "es",
+            "de",
+            "fr",
+            "pt",
+            "ru",
+            "id",
+            "vi",
+            "tr",
+            "ja",
+            "ko",
+            "ar"
+          ]
+        }
+      }
+    ],
+    "mutating": false,
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "country": {
+          "type": "number"
+        },
+        "lang": {
+          "type": "string",
+          "enum": [
+            "en",
+            "cn",
+            "es",
+            "de",
+            "fr",
+            "pt",
+            "ru",
+            "id",
+            "vi",
+            "tr",
+            "ja",
+            "ko",
+            "ar"
+          ]
+        }
+      },
+      "required": [],
+      "additionalProperties": false
+    }
+  },
+  {
+    "name": "getOperators",
+    "operationId": "getOperators",
+    "method": "GET",
+    "path": "?action=getOperators",
+    "parameters": [
+      {
+        "name": "country",
+        "in": "query",
+        "required": false,
+        "schema": {
+          "type": "number"
+        }
+      }
+    ],
+    "mutating": false,
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "country": {
+          "type": "number"
+        }
+      },
+      "required": [],
+      "additionalProperties": false
+    }
+  },
+  {
+    "name": "getPrices",
+    "operationId": "getPrices",
+    "method": "GET",
+    "path": "?action=getPrices",
+    "parameters": [
+      {
+        "name": "service",
+        "in": "query",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "country",
+        "in": "query",
+        "required": false,
+        "schema": {
+          "type": "number"
+        }
+      }
+    ],
+    "mutating": false,
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "service": {
+          "type": "string"
+        },
+        "country": {
+          "type": "number"
+        }
+      },
+      "required": [],
+      "additionalProperties": false
+    }
+  },
+  {
+    "name": "getTopCountriesByService",
+    "operationId": "getTopCountriesByService",
+    "method": "GET",
+    "path": "?action=getTopCountriesByService",
+    "parameters": [
+      {
+        "name": "service",
+        "in": "query",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "freePrice",
+        "in": "query",
+        "required": false,
+        "schema": {
+          "type": "boolean"
+        }
+      }
+    ],
+    "mutating": false,
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "service": {
+          "type": "string"
+        },
+        "freePrice": {
+          "type": "boolean"
+        }
+      },
+      "required": [],
+      "additionalProperties": false
+    }
+  },
+  {
+    "name": "getTopCountriesByServiceRank",
+    "operationId": "getTopCountriesByServiceRank",
+    "method": "GET",
+    "path": "?action=getTopCountriesByServiceRank",
+    "parameters": [
+      {
+        "name": "service",
+        "in": "query",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "freePrice",
+        "in": "query",
+        "required": false,
+        "schema": {
+          "type": "boolean"
+        }
+      }
+    ],
+    "mutating": false,
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "service": {
+          "type": "string"
+        },
+        "freePrice": {
+          "type": "boolean"
+        }
+      },
+      "required": [],
+      "additionalProperties": false
+    }
+  },
+  {
+    "name": "serviceCountRent",
+    "operationId": "serviceCountRent",
+    "method": "GET",
+    "path": "?action=serviceCountRent",
+    "parameters": [
+      {
+        "name": "service",
+        "in": "query",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "country",
+        "in": "query",
+        "required": false,
+        "schema": {
+          "type": "number"
+        }
+      },
+      {
+        "name": "operator",
+        "in": "query",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "currency",
+        "in": "query",
+        "required": false,
+        "schema": {
+          "type": "number",
+          "enum": [
+            643,
+            840,
+            978,
+            156
+          ]
+        }
+      }
+    ],
+    "mutating": false,
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "service": {
+          "type": "string"
+        },
+        "country": {
+          "type": "number"
+        },
+        "operator": {
+          "type": "string"
+        },
+        "currency": {
+          "type": "number",
+          "enum": [
+            643,
+            840,
+            978,
+            156
+          ]
+        }
+      },
+      "required": [
+        "service"
+      ],
+      "additionalProperties": false
+    }
+  },
+  {
+    "name": "getRentServicesAndCountries",
+    "operationId": "getRentServicesAndCountries",
+    "method": "GET",
+    "path": "?action=getRentServicesAndCountries",
+    "parameters": [
+      {
+        "name": "country",
+        "in": "query",
+        "required": true,
+        "schema": {
+          "type": "number"
+        }
+      },
+      {
+        "name": "duration",
+        "in": "query",
+        "required": true,
+        "schema": {
+          "type": "number"
+        }
+      }
+    ],
+    "mutating": false,
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "country": {
+          "type": "number"
+        },
+        "duration": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "country",
+        "duration"
+      ],
+      "additionalProperties": false
+    }
+  },
+  {
+    "name": "getRentNumber",
+    "operationId": "getRentNumber",
+    "method": "GET",
+    "path": "?action=getRentNumber",
+    "parameters": [
+      {
+        "name": "service",
+        "in": "query",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "country",
+        "in": "query",
+        "required": true,
+        "schema": {
+          "type": "number"
+        }
+      },
+      {
+        "name": "duration",
+        "in": "query",
+        "required": true,
+        "schema": {
+          "type": "number"
+        }
+      },
+      {
+        "name": "operator",
+        "in": "query",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "currency",
+        "in": "query",
+        "required": false,
+        "schema": {
+          "type": "number",
+          "enum": [
+            643,
+            840,
+            978,
+            156
+          ]
+        }
+      },
+      {
+        "name": "ref",
+        "in": "query",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "mutating": true,
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "service": {
+          "type": "string"
+        },
+        "country": {
+          "type": "number"
+        },
+        "duration": {
+          "type": "number"
+        },
+        "operator": {
+          "type": "string"
+        },
+        "currency": {
+          "type": "number",
+          "enum": [
+            643,
+            840,
+            978,
+            156
+          ]
+        },
+        "ref": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "service",
+        "country",
+        "duration"
+      ],
+      "additionalProperties": false
+    }
+  },
+  {
+    "name": "getAllSms",
+    "operationId": "getAllSms",
+    "method": "GET",
+    "path": "?action=getAllSms",
+    "parameters": [
+      {
+        "name": "id",
+        "in": "query",
+        "required": true,
+        "schema": {
+          "type": "integer"
+        }
+      },
+      {
+        "name": "size",
+        "in": "query",
+        "schema": {
+          "type": "integer"
+        }
+      },
+      {
+        "name": "page",
+        "in": "query",
+        "schema": {
+          "type": "integer"
+        }
+      }
+    ],
+    "mutating": false,
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "size": {
+          "type": "integer"
+        },
+        "page": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "id"
+      ],
+      "additionalProperties": false
+    }
+  },
+  {
+    "name": "saFinishActivation",
+    "operationId": "saFinishActivation",
+    "method": "GET",
+    "path": "?action=finishActivation",
+    "parameters": [
+      {
+        "name": "id",
+        "in": "query",
+        "required": true,
+        "schema": {
+          "type": "integer"
+        }
+      }
+    ],
+    "mutating": true,
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "id"
+      ],
+      "additionalProperties": false
+    }
+  },
+  {
+    "name": "saCancelActivation",
+    "operationId": "saCancelActivation",
+    "method": "GET",
+    "path": "?action=cancelActivation",
+    "parameters": [
+      {
+        "name": "id",
+        "in": "query",
+        "required": true,
+        "schema": {
+          "type": "integer"
+        }
+      }
+    ],
+    "mutating": true,
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "id"
+      ],
+      "additionalProperties": false
+    }
+  }
+]

@@ -1,0 +1,6 @@
+/target/
+/worker/build/
+/.wrangler/
+.env
+.env.*
+.dev.vars

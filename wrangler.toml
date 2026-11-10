@@ -1,0 +1,10 @@
+name = "hero-sms-mcp"
+main = "worker/build/worker/shim.mjs"
+compatibility_date = "2026-07-02"
+workers_dev = true
+
+[build]
+command = "worker-build --release worker"
+
+[observability]
+enabled = false

@@ -1,0 +1,45 @@
+[package]
+name = "hero-sms-mcp"
+version = "0.1.0"
+edition = "2024"
+license = "MIT"
+description = "HeroSMS CLI and MCP server with caller-owned credentials"
+
+[workspace]
+members = ["worker"]
+resolver = "2"
+
+[features]
+default = ["native"]
+native = ["dep:axum", "dep:clap", "dep:reqwest", "dep:tokio", "dep:tokio-stream", "dep:uuid", "dep:futures-util"]
+
+[dependencies]
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+url = "2"
+jsonschema = { version = "0.38.1", default-features = false }
+axum = { version = "0.8.9", optional = true }
+clap = { version = "4.6.7", features = ["derive"], optional = true }
+reqwest = { version = "0.12.28", default-features = false, features = ["rustls-tls", "json", "stream"], optional = true }
+tokio = { version = "1", features = ["macros", "rt-multi-thread", "io-std", "io-util", "net", "time", "sync"], optional = true }
+tokio-stream = { version = "0.1.19", optional = true }
+uuid = { version = "1", features = ["v4"], optional = true }
+futures-util = { version = "0.3", optional = true }
+
+[[bin]]
+name = "hero-sms-mcp"
+path = "src/main.rs"
+required-features = ["native"]
+
+[profile.dev]
+debug = 0
+incremental = false
+
+[profile.test]
+debug = 0
+incremental = false
+
+[profile.release]
+lto = true
+opt-level = "s"
+strip = true
